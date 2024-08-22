@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20' # Updated to Node.js 20
+          node-version: '18' # This will be overridden to Node.js 20 by GitHub in the future.
           registry-url: 'https://registry.npmjs.org/'
 
       - name: Install dependencies
