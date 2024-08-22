@@ -16,11 +16,15 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # This will be overridden to Node.js 20 by GitHub in the future.
+          node-version: '20'
           registry-url: 'https://registry.npmjs.org/'
+
+      - name: Navigate to auth directory
+        run: cd libs/auth
 
       - name: Install dependencies
         run: npm install
+        working-directory: libs/auth # Specify the correct directory
 
       - name: Bump version, commit, and push
         id: version
@@ -29,8 +33,10 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           git push --follow-tags
+        working-directory: libs/auth # Specify the correct directory
 
       - name: Publish to npm
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        working-directory: libs/auth # Specify the correct directory
